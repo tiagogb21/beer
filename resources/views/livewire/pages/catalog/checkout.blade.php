@@ -17,19 +17,25 @@ new
     }
 }; ?>
 
-<form class="bg-white p-6 rounded shadow-md" id="payment-form">
-    <h2 class="text-xl mb-4">Formulário de Pagamento</h2>
+<form class="my-10 lg:w-96 mx-auto bg-white p-6 rounded shadow-md" id="payment-form">
+    <h1 class="text-xl mb-4">Formulário de Pagamento</h1>
+
+    <div class="flex justify-between items-center mb-4">
+        <p>Total a pagar</p> <p>R$123</p>
+    </div>
 
     <!-- Nome no cartão -->
     <div class="mb-4">
-        <label for="card-name" class="block text-sm font-medium text-gray-700">Nome no cartão</label>
-        <input type="text" id="card-name" name="cardName" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+        <label for="card-name" class="block text-sm font-medium text-gray-700">Nome do titular</label>
+        <input type="text" id="card-name" name="cardName" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="{{Auth::user()->name}}" required>
     </div>
 
-    <!-- Endereço de cobrança -->
     <div class="mb-4">
-        <label for="billing-address" class="block text-sm font-medium text-gray-700">Endereço de cobrança</label>
-        <input type="text" id="billing-address" name="billingAddress" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+        <div class="flex justify-between">
+            <label for="shipping-address" class="block text-sm font-medium text-gray-700">Endereço de entrega</label>
+            <a href="{{ route('profile') }}">Alterar</a>
+        </div>
+        <input type="text" id="shipping-address" name="shippingAddress" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
     </div>
 
     <!-- Stripe Element -->

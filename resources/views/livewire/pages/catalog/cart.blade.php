@@ -19,7 +19,6 @@ new #[Layout('layouts.app')] class extends Component
         $cart = Cart::where('user_id', Auth::id())->first();
 
         if ($cart) {
-
             $cartItems = CartItem::where('cart_id', $cart->id)
                 ->with(['product' => function ($query) {
                     $query->with('media');
@@ -32,6 +31,20 @@ new #[Layout('layouts.app')] class extends Component
 
             return $cartItems;
         }
+    }
+
+    #[Computed]
+    public function cartTotal()
+    {
+        $cartItems = $this->showCartItems();
+
+        if ($cartItems) {
+            return $cartItems->sum(function ($item) {
+                return $item->product->price * $item->quantity;
+            });
+        }
+
+        return 0;
     }
 
     public function addToCart($productId, $quantity = 1)
@@ -77,7 +90,7 @@ new #[Layout('layouts.app')] class extends Component
         if ($cartItem && $cartItem->product->quantity > $cartItem->quantity) {
             $cartItem->increment('quantity');
             $cartItem->product->decrement('quantity');
-            $this->showCartItems(); // Atualiza a lista de itens do carrinho
+            $this->showCartItems();
         } else {
             session()->flash('error', 'Quantidade máxima atingida ou produto fora de estoque.');
         }
@@ -138,9 +151,9 @@ new #[Layout('layouts.app')] class extends Component
             </div>
             <div class="h-36 flex flex-col justify-between border border-solid border-white w-96 p-4 rounded-lg">
                 <h2 class="text-center text-2xl font-bold">Total</h2>
-                <p class="flex justify-between"><span>Total</span> <span>R$ 0</span></p>
+                <p class="flex justify-between"><span>Total</span> <span>R$ {{ number_format($this->cartTotal(), 2, ',', '.') }}</span></p>
                 <div class="flex items-center justify-center">
-                    <a href="route('checkout')" class="px-10 py-2 rounded-md font-bold uppercase bg-black text-white">finalizar</a>
+                    <a href="{{ route('checkout') }}" class="px-10 py-2 rounded-md font-bold uppercase bg-black text-white">finalizar</a>
                 </div>
             </div>
         </div>

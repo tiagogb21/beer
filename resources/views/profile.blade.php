@@ -15,6 +15,12 @@
 
             <div class="p-4 sm:p-8 border border-solid border-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
+                    <livewire:profile.update-address-information-form />
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-8 border border-solid border-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
                     <livewire:profile.update-password-form />
                 </div>
             </div>
