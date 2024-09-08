@@ -19,6 +19,9 @@ Volt::route('/products', 'pages.catalog.products')
 Volt::route('/products/{slug}', 'pages.catalog.product-details')
 ->name('product.show');
 
+Volt::route('/checkout', 'pages.catalog.checkout')
+->name('checkout');
+
 Volt::route('/cart', 'pages.catalog.cart')
 ->name('cart');
 

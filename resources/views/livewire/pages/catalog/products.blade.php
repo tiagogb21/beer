@@ -112,9 +112,11 @@ new
         @endif
         @foreach ($this->showProducts as $product)
         <div wire:key="{{ $product->id }}" class="border border-solid border-black p-4 items-center justify-between flex flex-col gap-4">
-            <img src="{{ $product->media[0]->original_url }}" class="w-32 h-32 object-cover mt-2">
-            <h3 class="font-bold text-lg">{{ $product->name }}</h3>
-            <p class="text-white font-bold text-2xl">R$ {{ $product->price }}</p>
+            <a href="{{ route('product.show', ['slug' => $product->slug]) }}" class="flex flex-col items-center">
+                <img src="{{ $product->media[0]->original_url }}" class="w-32 h-32 object-cover mt-2">
+                <h3 class="font-bold text-lg">{{ $product->name }}</h3>
+                <p class="text-white font-bold text-2xl">R$ {{ $product->price }}</p>
+            </a>
             <button wire:click="addToCart({{ $product->id }})" class="bg-white px-4 font-bold">Adicionar ao carrinho</button>
         </div>
         @endforeach

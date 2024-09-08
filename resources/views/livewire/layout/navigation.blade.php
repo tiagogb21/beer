@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 use App\Models\Product;
 
@@ -23,6 +24,13 @@ new class extends Component
         $this->search = '';
         $this->products = [];
     }
+
+    public function logout(Logout $logout): void
+    {
+        $logout();
+
+        $this->redirect('/', navigate: true);
+    }
 }
 ?>
 
@@ -34,7 +42,7 @@ new class extends Component
                     Orange Drinks
                 </a>
 
-                <div id="search-bar" class="relative">
+                <div id="search-bar" class="hidden lg:flex relative">
                     <form wire:model.live="search" class="flex items-center bg-white rounded-md" role="search">
                         <input
                             wire:model.live="search"
@@ -70,8 +78,8 @@ new class extends Component
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            <i class="fa-solid fa-user"></i>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -82,6 +90,8 @@ new class extends Component
                     </x-slot>
 
                     <x-slot name="content">
+                        <div class='text-gray-700 px-4 py-2 border-b border-solid border-gray-400' x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -93,6 +103,12 @@ new class extends Component
                         </button>
                     </x-slot>
                 </x-dropdown>
+            </div>
+            @else
+            <div class="flex items-center ml-10">
+                <a href="{{ route('login') }}">
+                    <i class="fa-solid fa-user"></i>
+                </a>
             </div>
             @endif
 
@@ -108,12 +124,6 @@ new class extends Component
     </div>
 
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
         @if (Auth::check())
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -126,7 +136,7 @@ new class extends Component
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <button wire:click="logout" class="w-full text-start">
+                <button wire:click="logout" class="w-full text-start text-white">
                     <x-responsive-nav-link>
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

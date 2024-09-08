@@ -36,7 +36,7 @@ new
         <div class="lg:w-1/2 lg:pl-8 mt-8 lg:mt-0">
             <h1 class="text-3xl font-bold mb-4">{{ $this->product->name }}</h1>
             <p class="text-lg text-gray-700 mb-4">{{ $this->product->description }}</p>
-            <p class="text-xl font-semibold mb-4">Price: ${{ $this->product->price }}</p>
+            <p class="text-xl font-semibold mb-4">Price: R${{ $this->product->price }}</p>
         </div>
     </div>
     @endif

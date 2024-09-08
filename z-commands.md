@@ -11,3 +11,7 @@
 ```bash
     npm run dev
 ```
+
+## Após o envio do formulário da home, o conteúdo pode ser encontrado em:
+
+beer/storage/app/formulario.txt
