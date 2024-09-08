@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans bg-primary text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center py-12">
             <div class="flex items-center gap-4">
                 <h1 class="text-3xl font-bold">Orange Drinks</h1>
                 <img src="/images/orange.jpeg" alt="" class="w-24 h-auto rounded-3xl">

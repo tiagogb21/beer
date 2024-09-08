@@ -95,6 +95,12 @@ return [
             ],
         ],
 
+        'mailgun' => [
+            'transport' => 'mailgun',
+            // 'client' => [
+            //     'timeout' => 5,
+            // ],
+        ],
     ],
 
     /*
@@ -109,8 +115,13 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'orangedrinks@mail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Orange Drinks Team'),
+    ],
+
+    'reply_to' => [
+        'address' => 'orangedrinks@mail.com',
+        'name' => 'Orange Drinks Team'
     ],
 
 ];

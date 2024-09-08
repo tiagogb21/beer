@@ -14,6 +14,8 @@ new #[Layout('layouts.guest')] class extends Component
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public string $birthday = '';
+    public string $phone = '';
 
     /**
      * Handle an incoming registration request.
@@ -22,8 +24,10 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'birthday' => ['required', 'date', 'before:18 years ago'],
+            'phone' => ['required', 'string', 'regex:/^\(?\d{2}\)?\s?\d{4,5}-\d{4}$/'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -32,7 +36,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('profile', absolute: false), navigate: true);
     }
 }; ?>
 
@@ -56,14 +60,14 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <div class="mt-4">
-            <x-input-label for="birthdate" :value="__('Birthdate')" />
-            <x-text-input wire:model="birthdate" id="birthdate" class="block mt-1 w-full" type="birthdate" name="birthdate" required autocomplete="birthdate" />
-            <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
+            <x-input-label for="birthday" :value="__('birthday')" />
+            <x-text-input wire:model="birthday" id="birthday" class="block mt-1 w-full" type="date" name="birthday" required autocomplete="birthday" value="2006-09-07" min="2006-09-07"  />
+            <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="phone" :value="__('Phone')" />
-            <x-text-input wire:model="phone" id="phone" class="block mt-1 w-full" type="phone" name="phone" required autocomplete="phone" />
+            <x-text-input wire:model="phone" id="phone" class="block mt-1 w-full" type="tel" name="phone" required autocomplete="phone" />
             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
         </div>
 
@@ -72,9 +76,9 @@ new #[Layout('layouts.guest')] class extends Component
             <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                type="password"
+                name="password"
+                required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -84,8 +88,8 @@ new #[Layout('layouts.guest')] class extends Component
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
             <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+                type="password"
+                name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
@@ -101,3 +105,16 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
     </form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var phoneInput = document.getElementById('phone');
+        var maskOptions = {
+            mask: '(99) 99999-9999'
+        };
+        Inputmask(maskOptions).mask(phoneInput);
+    });
+</script>
+

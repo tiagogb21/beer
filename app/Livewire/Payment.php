@@ -55,7 +55,7 @@ class Payment extends Component
 
             Auth::user()->charge($this->amount * 100, $this->MakeStripePayment(), [
                 'currency' => 'BRL',
-                'description' => "Depósito para Orange's Drink por " . Auth::user()->name,
+                'description' => "Depósito para Orange Drinks por " . Auth::user()->name,
                 'receipt_email' => Auth::user()->email,
             ]);
 

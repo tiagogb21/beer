@@ -46,7 +46,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             Auth::user()->charge($this->amount * 100, $this->MakeStripePayment(), [
                 'currency' => 'BRL',
-                'description' => "Depósito para Orange's Drink por " . Auth::user()->name,
+                'description' => "Depósito para Orange Drinks por " . Auth::user()->name,
                 'receipt_email' => Auth::user()->email,
             ]);
 
@@ -89,7 +89,7 @@ new #[Layout('layouts.guest')] class extends Component
                         <div class="form-group">
                             <label for="amount">Amount:</label>
                             <input type="text" wire:model="amount" class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" id="amount" placeholder="Enter Amount">
-                            {!! $errors->has('amount') ? "<span class='text-danger'>{$errors->first('amount')}</span>" : '' !!}
+                            {!!$errors->has('amount') ? "<span class='text-danger'>{$errors->first('amount')}</span>" : '' !!}
                         </div>
                     </div>
 
