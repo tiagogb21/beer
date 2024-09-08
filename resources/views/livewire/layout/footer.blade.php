@@ -1,4 +1,5 @@
-<footer class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm bg-orange-300 flex flex-col lg:flex-row justify-between gap-10">
+<footer class="bg-orange-300">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm flex flex-col lg:flex-row justify-between gap-10">
     <p class="text-justify">Com uma adega online, você pode explorar uma ampla seleção de rótulos excepcionais, descobrir novos sabores e receber os vinhos diretamente na sua casa. Além disso, a praticidade de poder adquirir seus vinhos favoritos com apenas alguns cliques proporciona mais tempo para desfrutar dos momentos especiais ao lado de quem você ama. Então, abra uma garrafa, brinde à modernidade e permita-se vivenciar a magia dos vinhos de uma forma totalmente nova.</p>
     <nav class="w-full">
         <h2 class="text-2xl font-bold">Redes Sociais</h2>
@@ -12,4 +13,5 @@
         Orange Drinks - 2024 &copy;Todos os direitos reservados
     </nav>
     <p class="text-justify">Acesse nossa adega online e descubra um mundo de aromas, sabores e possibilidades. Cheers!Uma adega online oferece conveniência, uma ampla seleção de vinhos excepcionais e a oportunidade de desfrutar de momentos especiais no conforto do lar. Acesse nossa adega online e descubra um mundo de aromas, sabores e possibilidades. Cheers! E não se esqueça de compartilhar nosso aplicativo com seus amigos para que eles também possam desfrutar dessas vantagens</p>
+    </div>
 </footer>

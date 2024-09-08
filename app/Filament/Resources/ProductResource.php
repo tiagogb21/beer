@@ -57,7 +57,8 @@ class ProductResource extends Resource
 
                             Forms\Components\MarkdownEditor::make('description')
                                 ->columnSpan('full')
-                                ->label('Descrição'),
+                                ->label('Descrição')
+                                ->required(),
                         ])
                         ->columns(2),
 

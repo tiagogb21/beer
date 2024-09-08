@@ -52,7 +52,7 @@ class CategoryResource extends Resource
                         Forms\Components\Section::make('Imagens')
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('media')
-                                    ->collection('product-images')
+                                    ->collection('category-images')
                                     ->multiple()
                                     ->maxFiles(5)
                                     ->hiddenLabel(),
@@ -101,7 +101,7 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
                     ->label('Imagem')
-                    ->collection('product-images'),
+                    ->collection('category-images'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
                     ->searchable()

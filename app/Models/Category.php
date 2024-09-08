@@ -61,4 +61,9 @@ class Category extends Model implements HasMedia
     {
         return $this->belongsToMany(Product::class, 'category_products', 'category_id', 'product_id');
     }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('category-images');
+    }
 }

@@ -5,12 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::middleware('guest')->group(function () {
-    Volt::route('/', 'pages.catalog.home')
-    ->name('home');
-
-    Volt::route('/cart', 'pages.catalog.cart')
-    ->name('cart');
-
     Volt::route('register', 'pages.auth.register')
         ->name('register');
 

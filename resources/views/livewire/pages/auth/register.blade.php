@@ -61,7 +61,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         <div class="mt-4">
             <x-input-label for="birthday" :value="__('birthday')" />
-            <x-text-input wire:model="birthday" id="birthday" class="block mt-1 w-full" type="date" name="birthday" required autocomplete="birthday" value="2006-09-07" min="2006-09-07"  />
+            <x-text-input wire:model="birthday" id="birthday" class="block mt-1 w-full" type="date" name="birthday" required autocomplete="birthday" value="2006-09-07" max="2006-09-07"  />
             <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
         </div>
 
