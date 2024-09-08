@@ -25,6 +25,9 @@ Volt::route('/checkout', 'pages.catalog.checkout')
 Volt::route('/cart', 'pages.catalog.cart')
 ->name('cart');
 
+Volt::route('/order/confirmation/{order}', 'pages.catalog.order-confirmation')
+->name('order.confirmation');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
