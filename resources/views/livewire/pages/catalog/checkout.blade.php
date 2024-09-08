@@ -15,6 +15,9 @@ new
     #[Title('Checkout')]
     class extends Component
 {
+    public string $name = '';
+    public string $address = '';
+
     #[Computed]
     public function cartTotal()
     {
@@ -75,6 +78,23 @@ new
 
         return redirect()->route('order.confirmation', ['order' => $order->id]);
     }
+
+    public function showAddress()
+    {
+        $address = Auth::user()->addresses->first();
+    
+        if (!$address) {
+            return 'Endereço não disponível.';
+        }
+    
+        return "{$address->street}, {$address->number} - {$address->city}, {$address->state}";
+    }
+
+    public function mount(): void
+    {
+        $this->address = $this->showAddress();
+        $this->name = Auth::user()->name;
+    }
 }
 ?>
 
@@ -86,18 +106,17 @@ new
     </div>
 
     <!-- Nome no cartão -->
-    <div class="mb-4">
-        <label for="card-name" class="block text-sm font-medium text-gray-700">Nome do titular</label>
-        <input type="text" id="card-name" name="cardName" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="{{ Auth::user()->name }}" required>
+    <div>
+        <x-input-label for="name" :value="__('name')" />
+        <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required autocomplete="name" />
+        <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 
     <!-- Endereço de Entrega -->
-    <div class="mb-4">
-        <div class="flex justify-between">
-            <label for="shipping-address" class="block text-sm font-medium text-gray-700">Endereço de entrega</label>
-            <a href="{{ route('profile') }}">Alterar</a>
-        </div>
-        <input type="text" id="shipping-address" name="shippingAddress" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+    <div>
+        <x-input-label for="address" :value="__('address')" />
+        <x-text-input wire:model="address" id="address" name="address" type="text" class="mt-1 block w-full" required autocomplete="address" />
+        <x-input-error class="mt-2" :messages="$errors->get('address')" />
     </div>
 
     <!-- Stripe Element -->
@@ -127,7 +146,7 @@ new
             event.preventDefault();
 
             const cardName = document.getElementById('card-name').value;
-            const billingAddress = document.getElementById('billing-address') ? document.getElementById('billing-address').value : '';
+            const billingAddress = document.getElementById('address') ? document.getElementById('address').value : '';
 
             const {paymentMethod, error} = await stripe.createPaymentMethod({
                 type: 'card',
